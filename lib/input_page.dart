@@ -4,6 +4,8 @@ import 'gender_picker.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
 import 'bottom_button.dart';
+import 'calculator_brain.dart';
+import 'results_page.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -200,7 +202,18 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             buttonTitle: 'Calculate your BMI',
             onTap: () {
-              Navigator.pushNamed(context, '/results');
+              CalculatorBrain calc =
+                  CalculatorBrain(height: height, weight: weight);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResults(),
+                    interpretation: calc.getInterpretation(),
+                  ),
+                ),
+              );
             },
           ),
         ],
